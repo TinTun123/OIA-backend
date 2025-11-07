@@ -64,10 +64,19 @@ class PostResource extends Resource
                             ])
                             ->searchable()
                             ->required(),
-                        TextInput::make('fbURL')
-                            ->label('Facebook Post URL')
-                            ->url()
-                            ->nullable()
+                        Select::make('fb_template')
+                            ->label('FB Post Template')
+                            ->options([
+                                'image_text' => 'Image & Text',
+                                'website_link' => 'Website Link',
+                                'gallery' => 'Gallery Post',
+                            ])
+                            ->reactive()
+                            ->required(),
+                        // TextInput::make('fbURL')
+                        //     ->label('Facebook Post URL')
+                        //     ->url()
+                        //     ->nullable()
                     ])
                     ->columns(2),
                 Section::make("Cover image")->schema([
@@ -87,11 +96,10 @@ class PostResource extends Resource
 
                 Section::make('Content')
                     ->schema([
-                        RichEditor::make('content')
+                        Textarea::make('content')
                             ->label('Content (English)')
                             ->columnSpanFull(),
-
-                        RichEditor::make('content_bur')
+                        Textarea::make('content_bur')
                             ->label('Content (Burmese)')
                             ->columnSpanFull(),
                     ])

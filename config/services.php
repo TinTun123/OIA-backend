@@ -30,5 +30,12 @@ return [
         'secret' => env('AWS_SECRET_ACCESS_KEY'),
         'region' => env('AWS_DEFAULT_REGION', 'us-east-1'),
     ],
+    'facebook' => [
+        'page_id' => env('FACEBOOK_PAGE_ID'),
+        'page_access_token' => env('FACEBOOK_PAGE_ACCESS_TOKEN'),
+    ],
 
+    'frontend' => [
+        'url' => env('FRONTEND_URL'),
+    ],
 ];

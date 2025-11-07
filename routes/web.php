@@ -3,7 +3,7 @@
 use App\Http\Controllers\ProfileController;
 use App\Models\ProgramPage;
 use Illuminate\Support\Facades\Route;
-
+use App\Http\Controllers\ShareController;
 /*
 |--------------------------------------------------------------------------
 | Web Routes
@@ -16,7 +16,7 @@ use Illuminate\Support\Facades\Route;
 */
 
 Route::redirect('/', '/admin');
-
+Route::get('/s/{id}', [ShareController::class, 'post'])->name('share.post');
 Route::get('/dashboard', function () {
     return view('dashboard');
 })->middleware(['auth', 'verified'])->name('dashboard');
