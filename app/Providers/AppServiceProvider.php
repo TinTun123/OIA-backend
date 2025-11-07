@@ -22,11 +22,5 @@ class AppServiceProvider extends ServiceProvider
     public function boot(): void
     {
         //
-        // FilamentAsset::register([
-        //     Js::make(
-        //         'rich-content-plugins/image-resize',
-        //         asset('build/assets/image-resize.js')
-        //     )->loadedOnRequest(),
-        // ]);
     }
 }
