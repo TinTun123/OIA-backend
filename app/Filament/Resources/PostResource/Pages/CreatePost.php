@@ -62,7 +62,7 @@ class CreatePost extends CreateRecord
         if ($template === 'image_text') {
             $this->postImageAndText($record, $pageId, $token, $content);
         } elseif ($template === 'website_link') {
-            $url = $frontend . "/post/" . $record->id;
+            $url = $frontend . "post/" . $record->id;
             $this->postWebsiteLink($url, $content, $pageId, $token);
         }
 
@@ -75,7 +75,7 @@ class CreatePost extends CreateRecord
     {
 
 
-        $coverImg = asset($record->cover_url) ?? '';
+        $coverImg = asset('storage/' . $record->cover_url);
         Log::info("coverImg : ", [$coverImg]);
         if (!$record->cover_url) return;
 
