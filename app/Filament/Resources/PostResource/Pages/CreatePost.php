@@ -56,14 +56,13 @@ class CreatePost extends CreateRecord
         $token    = config('services.facebook.page_access_token');
         $backendURL = config('services.backend.url');
 
-        Log::info('Images : ', $record->images);
-        Log::info("FB Template selected: ", [$template]);
-
         if ($template === 'image_text') {
             $this->postImageAndText($record, $pageId, $token, $content);
         } elseif ($template === 'website_link') {
             $url = $backendURL . "s/" . $record->id;
             $this->postWebsiteLink($url, $content, $pageId, $token);
+        } elseif ($template === 'gallery') {
+            $this->postGallery($record->images, $content, $pageId, $token);
         }
 
         // Assuming $pageId, $token, and $content are available in your class scope
@@ -99,36 +98,34 @@ class CreatePost extends CreateRecord
         Log::info("FB Link Post Response", $response->json());
     }
 
-    // protected function postGallery($images, $content, $pageId, $token)
-    // {
-    //     if (!$images || !is_array($images)) return;
+    protected function postGallery($images, $content, $pageId, $token)
+    {
+        if (!$images || !is_array($images)) return;
 
-    //     $mediaIds = [];
+        $mediaIds = [];
 
-    //     foreach ($images as $img) {
-    //         $imagePath = storage_path('app/public/' . $img);
+        foreach ($images as $img) {
 
-    //         $upload = Http::attach(
-    //             'source',
-    //             file_get_contents($imagePath),
-    //             basename($imagePath)
-    //         )->post("https://graph.facebook.com/$pageId/photos", [
-    //             'published' => false,
-    //             'access_token' => $token,
-    //         ]);
+            $photo = asset('storage/' . $img);
+            $upload = Http::post("https://graph.facebook.com/v24.0/$pageId/photos", [
+                'published' => false,
+                'temporary' => true,
+                'url' => $photo,
+                'access_token' => $token,
+            ]);
 
-    //         if ($upload->successful()) {
-    //             $mediaIds[] = ['media_fbid' => $upload['id']];
-    //         }
-    //     }
+            if ($upload->successful()) {
+                $mediaIds[] = ['media_fbid' => $upload['id']];
+            }
+        }
 
-    //     // Create final carousel post
-    //     $response = Http::post("https://graph.facebook.com/$pageId/feed", [
-    //         'message' => $content,
-    //         'attached_media' => $mediaIds,
-    //         'access_token' => $token,
-    //     ]);
+        // Create final carousel post
+        $response = Http::post("https://graph.facebook.com/v24.0/$pageId/feed", [
+            'message' => $content,
+            'attached_media' => $mediaIds,
+            'access_token' => $token,
+        ]);
 
-    //     Log::info("FB Gallery Post Response", $response->json());
-    // }
+        Log::info("FB Gallery Post Response", $response->json());
+    }
 }
