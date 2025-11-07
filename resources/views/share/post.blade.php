@@ -10,7 +10,7 @@
     <meta property="og:description" content="{{ Str::limit(strip_tags($post->content_bur), 140) }}">
     <meta property="og:image" content="{{ asset('storage/' . $post->cover_url) }}">
     <meta property="og:url" content="{{ url()->current() }}">
-    <meta property="og:type" content="post">
+    <meta property="og:type" content="article">
 
     <!-- OPTIONAL BUT RECOMMENDED -->
     <meta name="twitter:card" content="summary_large_image">

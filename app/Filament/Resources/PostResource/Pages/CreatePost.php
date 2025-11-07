@@ -73,9 +73,10 @@ class CreatePost extends CreateRecord
 
     protected function postImageAndText($record, $pageId, $token, $content)
     {
-        Log::info("record->cover_url : ", [$record->cover_url]);
+
 
         $coverImg = asset($record->cover_url) ?? '';
+        Log::info("coverImg : ", [$coverImg]);
         if (!$record->cover_url) return;
 
         $response = Http::post("https://graph.facebook.com/v24.0/$pageId/photos", [
@@ -89,7 +90,7 @@ class CreatePost extends CreateRecord
 
     protected function postWebsiteLink($url, $content, $pageId, $token)
     {
-        $response = Http::post("https://graph.facebook.com/$pageId/feed", [
+        $response = Http::post("https://graph.facebook.com/v24.0/$pageId/feed", [
             'message' => $content,
             'link' => $url,
             'access_token' => $token,
