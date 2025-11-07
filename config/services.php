@@ -33,6 +33,7 @@ return [
     'facebook' => [
         'page_id' => env('FACEBOOK_PAGE_ID'),
         'page_access_token' => env('FACEBOOK_PAGE_ACCESS_TOKEN'),
+        'app_id' => env('FACEBOOK_APP_ID')
     ],
 
     'frontend' => [
