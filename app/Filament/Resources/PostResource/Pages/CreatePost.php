@@ -54,7 +54,7 @@ class CreatePost extends CreateRecord
         $coverImg = $record->cover_url ?? [];
         $pageId   = config('services.facebook.page_id');
         $token    = config('services.facebook.page_access_token');
-        $frontend = config('services.frontend.url');
+        $backendURL = config('services.backend.url');
 
         Log::info('Images : ', $record->images);
         Log::info("FB Template selected: ", [$template]);
@@ -62,7 +62,7 @@ class CreatePost extends CreateRecord
         if ($template === 'image_text') {
             $this->postImageAndText($record, $pageId, $token, $content);
         } elseif ($template === 'website_link') {
-            $url = $frontend . "post/" . $record->id;
+            $url = $backendURL . "s/" . $record->id;
             $this->postWebsiteLink($url, $content, $pageId, $token);
         }
 

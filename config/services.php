@@ -39,4 +39,7 @@ return [
     'frontend' => [
         'url' => env('FRONTEND_URL'),
     ],
+    'backend' => [
+        'url' => env('BACKEND_URL'),
+    ],
 ];
