@@ -18,7 +18,7 @@
 
     <!-- REDIRECT REAL USERS TO FRONTEND SPA -->
     <script>
-        window.location.href = "{{ config('services.frontend.url') }}/post/{{ $post->id }}";
+        window.location.href = "{{ config('services.frontend.url') }}post/{{ $post->id }}";
     </script>
 </head>
 
