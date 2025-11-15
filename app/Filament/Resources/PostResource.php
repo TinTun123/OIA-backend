@@ -71,8 +71,7 @@ class PostResource extends Resource
                                 'website_link' => 'Website Link',
                                 'gallery' => 'Gallery Post',
                             ])
-                            ->reactive()
-                            ->required(),
+                            ->reactive(),
                         // TextInput::make('fbURL')
                         //     ->label('Facebook Post URL')
                         //     ->url()
